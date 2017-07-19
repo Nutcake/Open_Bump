@@ -26,9 +26,9 @@ import math
 
 
 usage = """\
-Usage: open_bump.py [-ha] "<image_file>" "<output_image>"
-  image_file        - <required> path to the image file to bump
-  output_image      - <optional> path to output the bumped file to (defaults to <image_file>_bumped.img
+Usage: lg-bootsign [-ha] "<image_file>" "<output_image>"
+  image_file        - <required> path to the image file to sign
+  output_image      - <optional> path to output the signed file to (defaults to <image_file>_bumped.img
   -a/--apend image_file  - <required> if in append mode, the <image_file> is appended rather than <output_file> being generated\
 """
 
@@ -119,7 +119,7 @@ def get_sha1(image_name):
 
 
 def finish(out_image):
-    print("bumped image: %s" % out_image)
+    print("Signed image: %s" % out_image)
     sys.exit(0)
 
 
@@ -127,7 +127,7 @@ def main(in_image, out_image):
     d_in_image = open(in_image, 'rb').read()
     open(out_image, 'wb').write(d_in_image)
     if bumped(d_in_image):
-        print("Image already bumped")
+        print("Image already signed")
         finish(out_image)
     pad_image(out_image)
     magic = binascii.unhexlify(lg_magic)
